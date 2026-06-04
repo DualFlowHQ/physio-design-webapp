@@ -344,10 +344,21 @@ function Segmented({ label, value, options, onChange }) {
 
 function readSavedState() {
   try {
-    return normalizeAppState(JSON.parse(localStorage.getItem(STATE_KEY)));
+    const saved = JSON.parse(localStorage.getItem(STATE_KEY));
+    if (isLegacyMarcDemoState(saved)) {
+      localStorage.removeItem(STATE_KEY);
+      return defaultState();
+    }
+    return normalizeAppState(saved);
   } catch {
     return defaultState();
   }
+}
+
+function isLegacyMarcDemoState(raw) {
+  const profile = raw?.profile;
+  if (!profile || typeof profile !== 'object') return false;
+  return profile.firstName === 'Marc' || profile.condition === 'Post-LCA';
 }
 
 function defaultState() {
