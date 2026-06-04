@@ -273,11 +273,11 @@ function ProfileScreen({ profile, locale, onLocaleChange, theme, onThemeChange, 
 
       <div className="profile-card" style={{ marginTop: 22 }}>
         <div className="field-grid">
-          <Field label="Prénom" value={draft.firstName} onChange={(v) => update('firstName', v)} placeholder="Marc" />
-          <Field label="Blessure / condition" value={draft.condition} onChange={(v) => update('condition', v)} placeholder="Post-LCA" />
-          <Field label="Objectif" value={draft.goal} onChange={(v) => update('goal', v)} placeholder="Retour à la course" />
-          <Field label="Prochain rendez-vous" value={draft.nextAppointment} onChange={(v) => update('nextAppointment', v)} placeholder="Jeudi · 14h" />
-          <Field label="Notes utiles" value={draft.notes} onChange={(v) => update('notes', v)} placeholder="Ex: douleur surtout en descendant les escaliers" multiline />
+          <Field label="Prénom" value={draft.firstName} onChange={(v) => update('firstName', v)} placeholder="Gabriel" />
+          <Field label="Blessure / condition" value={draft.condition} onChange={(v) => update('condition', v)} placeholder="Douleur de hanche" />
+          <Field label="Objectif" value={draft.goal} onChange={(v) => update('goal', v)} placeholder="Marcher sans boiter puis retrouver la force" />
+          <Field label="Prochain rendez-vous" value={draft.nextAppointment} onChange={(v) => update('nextAppointment', v)} placeholder="Vendredi · 10h" />
+          <Field label="Notes utiles" value={draft.notes} onChange={(v) => update('notes', v)} placeholder="Début le 4 mars 2026. Fin inconnue." multiline />
         </div>
 
         <button type="button" className="primary-action" style={{ marginTop: 18 }} onClick={() => onSave(draft)}>
@@ -353,7 +353,7 @@ function readSavedState() {
 function defaultState() {
   return {
     profile: defaultProfile(),
-    checkin: { pain: 3, energy: 6, sleep: 7, note: '', painSpots: {}, done: false },
+    checkin: { pain: 4, energy: 6, sleep: 7, note: '', painSpots: { 'r-hip': 2 }, done: false },
     session: freshSession(),
     checkins: {
       now: { done: false },
@@ -367,11 +367,11 @@ function defaultState() {
 function defaultProfile() {
   return {
     setupDone: true,
-    firstName: 'Marc',
-    condition: 'Post-LCA',
-    goal: 'Retour à la course',
-    nextAppointment: 'Jeudi · 14h',
-    notes: '',
+    firstName: 'Gabriel',
+    condition: 'Douleur de hanche',
+    goal: 'Marcher sans boiter puis retrouver la force',
+    nextAppointment: 'Vendredi · 10h',
+    notes: 'Début le 4 mars 2026. Fin de rééducation inconnue.',
   };
 }
 

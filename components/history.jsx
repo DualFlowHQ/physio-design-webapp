@@ -1,10 +1,10 @@
 // History / progress screen
 const PROGRESS_PHASES = [
-  { id: 'protection', label: 'Protection', weeks: 'Sem 1-2', status: 'done', note: 'Gonflement sous contrôle' },
-  { id: 'mobilite', label: 'Mobilité', weeks: 'Sem 3-4', status: 'done', note: 'Flexion complète retrouvée' },
-  { id: 'force', label: 'Force', weeks: 'Sem 5-8', status: 'current', note: 'Quadriceps et stabilité' },
-  { id: 'sport', label: 'Sport', weeks: 'Sem 9-11', status: 'next', note: 'Course légère, sauts simples' },
-  { id: 'retour', label: 'Retour', weeks: 'Sem 12', status: 'future', note: 'Retour contrôlé au terrain' },
+  { id: 'stop-bobo', label: 'Stop bobo', weeks: 'Mars', status: 'done', note: 'Faire redescendre les pics et protéger la hanche' },
+  { id: 'marche', label: 'Marcher', weeks: 'Mars-avril', status: 'done', note: 'Reprendre une marche plus régulière' },
+  { id: 'mobilite', label: 'Mobilité', weeks: 'Avril', status: 'done', note: 'Bouger sans protection excessive' },
+  { id: 'force', label: 'Force', weeks: 'Mai-juin', status: 'current', note: 'Abducteurs, fessiers, squat et pont' },
+  { id: 'retour', label: 'Retour', weeks: 'À confirmer', status: 'future', note: 'Retour progressif selon douleur et tests' },
 ];
 
 function HistoryScreen({ onBack }) {
@@ -39,7 +39,7 @@ function HistoryScreen({ onBack }) {
       <div style={{ padding: '8px 24px 0' }}>
         <div style={{ fontFamily: T.sans, fontSize: 12, letterSpacing: 0.5, textTransform: 'uppercase', color: T.ink3 }}>Progression</div>
         <div style={{ marginTop: 6, fontFamily: T.display, fontSize: 36, lineHeight: 1.05, letterSpacing: -0.4, color: T.ink }}>
-          Six semaines<br /><span style={{ fontStyle: 'italic', color: T.accentInk }}>plus forte.</span>
+          Depuis le 4 mars<br /><span style={{ fontStyle: 'italic', color: T.accentInk }}>plus stable.</span>
         </div>
       </div>
 
@@ -77,8 +77,9 @@ function HistoryScreen({ onBack }) {
 }
 
 const PROGRESS_MILESTONES = [
-  { when: 'Dans 3 semaines', text: 'Test de course légère si douleur stable sous 3/10' },
-  { when: 'Sem 12', text: 'Retour au sport contrôlé après validation clinique' },
+  { when: '1er avril', text: 'Début du programme quotidien: montée de genou avec élastique, abduction et fessier' },
+  { when: '8 mai', text: 'Ajout du squat et du pont: 5 exercices au total' },
+  { when: 'Fin', text: 'À confirmer avec le physio selon douleur, marche et force' },
 ];
 
 
@@ -200,11 +201,11 @@ function ProgressJourneyCarousel({ phases }) {
             Les jalons marquent les validations importantes déjà franchies et les prochains caps cliniques.
           </div>
           <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <Milestone when="Sem 2" text="Première séance sans douleur nocturne" done />
-            <Milestone when="Sem 4" text="Flexion complète retrouvée (140°)" done />
-            <Milestone when="Sem 6" text="Passage en phase renforcement" done current />
-            <Milestone when="Sem 9" text="Reprise course légère (projeté)" />
-            <Milestone when="Sem 12" text="Retour au sport contrôlé (projeté)" />
+            <Milestone when="4 mars" text="Début des symptômes de hanche" done />
+            <Milestone when="1er avr." text="Programme quotidien lancé avec 3 exercices" done />
+            <Milestone when="8 mai" text="Squat et pont ajoutés au programme" done />
+            <Milestone when="Sem 14" text="Douleur stable autour de 4/10" done current />
+            <Milestone when="Fin" text="À confirmer avec le physio" />
           </div>
         </JourneyPanel>
       </div>
@@ -348,7 +349,7 @@ function WeeklyTable({ weeks }) {
               Par semaine
             </div>
             <div style={{ marginTop: 4, fontFamily: T.sans, fontSize: 13, lineHeight: 1.35, color: T.ink2 }}>
-              Sem 6 · douleur {currentWeek.pain}/10
+              Sem 14 · douleur {currentWeek.pain}/10
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

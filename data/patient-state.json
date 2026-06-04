@@ -4,20 +4,22 @@
       "state": {
         "profile": {
           "setupDone": true,
-          "firstName": "Marc",
-          "condition": "Post-LCA",
-          "goal": "Retour à la course",
-          "nextAppointment": "Jeudi · 14h",
-          "notes": "Douleur surtout en descendant les escaliers"
+          "firstName": "Gabriel",
+          "condition": "Douleur de hanche",
+          "goal": "Marcher sans boiter puis retrouver la force",
+          "nextAppointment": "Vendredi · 10h",
+          "notes": "Début le 4 mars 2026. Fin de rééducation inconnue. Douleur de hanche à préciser avec le physio."
         },
         "checkin": {
-          "date": "2026-06-04",
-          "pain": 2,
-          "energy": 7,
-          "sleep": 8,
-          "note": "Genou stable ce matin, légère raideur au réveil.",
-          "painSpots": {},
-          "done": true
+          "pain": 4,
+          "energy": 6,
+          "sleep": 7,
+          "note": "Douleur de hanche autour de 4/10 depuis deux semaines. Marche mieux tolérée, gêne encore présente sur certains mouvements.",
+          "painSpots": {
+            "r-hip": 2
+          },
+          "done": true,
+          "date": "2026-06-04"
         },
         "session": {
           "exerciseIdx": 0,
@@ -25,7 +27,18 @@
           "completedSets": 0,
           "stage": "doing",
           "lastReps": 0,
-          "log": []
+          "log": [],
+          "exercises": [
+            {
+              "name": "Nage facile",
+              "muscle": "Cardio doux",
+              "sets": 1,
+              "reps": "15 min",
+              "tempo": "facile",
+              "load": "Piscine",
+              "cue": "Reste à une intensité confortable et note la réaction de la hanche après."
+            }
+          ]
         },
         "checkins": {
           "now": {
@@ -47,71 +60,71 @@
             "date": "2026-05-29",
             "label": "Vendredi",
             "pain": 4,
-            "energy": 5,
-            "sleep": 6,
-            "fatigue": 5,
-            "sensation": "Raideur",
-            "note": "Raideur en flexion, douleur plus présente en fin de journée.",
+            "energy": 6,
+            "sleep": 7,
+            "fatigue": 4,
+            "sensation": "Tiraillement",
+            "note": "Hanche sensible en fin de marche, retour au calme après repos.",
             "completedSession": true,
             "adherence": "fait"
           },
           {
             "date": "2026-05-30",
             "label": "Samedi",
-            "pain": 3,
+            "pain": 4,
             "energy": 6,
             "sleep": 7,
             "fatigue": 4,
             "sensation": "Stable",
-            "note": "Marche mieux tolérée, pas de douleur nocturne.",
+            "note": "Programme complet fait. Pas de hausse durable après les exercices.",
             "completedSession": true,
             "adherence": "fait"
           },
           {
             "date": "2026-05-31",
             "label": "Dimanche",
-            "pain": 3,
-            "energy": 6,
+            "pain": 4,
+            "energy": 5,
             "sleep": 6,
             "fatigue": 5,
-            "sensation": "Sensible",
-            "note": "Petite sensibilité après les escaliers, retour au calme rapide.",
-            "completedSession": false,
-            "adherence": "repos"
+            "sensation": "Raideur",
+            "note": "Raideur au lever, mieux après mobilité douce.",
+            "completedSession": true,
+            "adherence": "fait"
           },
           {
             "date": "2026-06-01",
             "label": "Lundi",
-            "pain": 2,
-            "energy": 7,
-            "sleep": 8,
-            "fatigue": 3,
-            "sensation": "Confiant",
-            "note": "Bonne stabilité sur les exercices debout.",
+            "pain": 4,
+            "energy": 6,
+            "sleep": 7,
+            "fatigue": 4,
+            "sensation": "Stable",
+            "note": "Squat et pont tolérés avec amplitude contrôlée.",
             "completedSession": true,
             "adherence": "fait"
           },
           {
             "date": "2026-06-02",
             "label": "Mardi",
-            "pain": 2,
+            "pain": 4,
             "energy": 7,
             "sleep": 7,
-            "fatigue": 4,
-            "sensation": "Stable",
-            "note": "Charge bien tolérée, amplitude complète sans compensation.",
+            "fatigue": 3,
+            "sensation": "Confiant",
+            "note": "Montées de genou avec élastique plus fluides, gêne stable.",
             "completedSession": true,
             "adherence": "fait"
           },
           {
             "date": "2026-06-03",
             "label": "Mercredi",
-            "pain": 3,
+            "pain": 4,
             "energy": 6,
             "sleep": 7,
             "fatigue": 4,
             "sensation": "Légère gêne",
-            "note": "Gêne antérieure légère après la marche, disparue après repos.",
+            "note": "Douleur stable autour de 4/10. Aucun pic après la séance.",
             "completedSession": true,
             "adherence": "fait"
           }
@@ -120,56 +133,56 @@
           {
             "id": "session-2026-05-29",
             "date": "2026-05-29",
-            "title": "Activation quadriceps",
+            "title": "Activation hanche",
             "durationMin": 18,
-            "completedSets": 8,
+            "completedSets": 15,
             "averagePain": 4,
             "averageEffort": 5,
-            "note": "Réduction de l’amplitude sur la dernière série."
+            "note": "Programme complet. Douleur stable pendant les séries."
           },
           {
             "id": "session-2026-05-30",
             "date": "2026-05-30",
-            "title": "Mobilité + contrôle",
-            "durationMin": 21,
-            "completedSets": 9,
-            "averagePain": 3,
+            "title": "Mobilité + fessiers",
+            "durationMin": 20,
+            "completedSets": 15,
+            "averagePain": 4,
             "averageEffort": 5,
-            "note": "Bon contrôle du genou en appui."
+            "note": "Meilleur contrôle sur abduction et pont."
           },
           {
             "id": "session-2026-06-01",
             "date": "2026-06-01",
-            "title": "Renforcement doux",
-            "durationMin": 24,
-            "completedSets": 10,
-            "averagePain": 2,
+            "title": "Force douce hanche",
+            "durationMin": 22,
+            "completedSets": 15,
+            "averagePain": 4,
             "averageEffort": 6,
-            "note": "Progression validée sans hausse de douleur."
+            "note": "Squats contrôlés, aucune hausse le lendemain."
           },
           {
             "id": "session-2026-06-02",
             "date": "2026-06-02",
-            "title": "Stabilité et amplitude",
-            "durationMin": 22,
-            "completedSets": 10,
-            "averagePain": 2,
+            "title": "Programme quotidien",
+            "durationMin": 21,
+            "completedSets": 15,
+            "averagePain": 4,
             "averageEffort": 6,
-            "note": "Amplitude complète et charge stable."
+            "note": "Montées de genou avec élastique plus stables."
           },
           {
             "id": "session-2026-06-03",
             "date": "2026-06-03",
-            "title": "Force fonctionnelle",
-            "durationMin": 20,
-            "completedSets": 9,
-            "averagePain": 3,
+            "title": "Force et contrôle",
+            "durationMin": 21,
+            "completedSets": 15,
+            "averagePain": 4,
             "averageEffort": 6,
-            "note": "Gêne légère en fin de séance, à surveiller."
+            "note": "Gêne légère mais stable. Continuer la progression prudente."
           }
         ]
       },
-      "updatedAt": "2026-06-04T01:53:53.743Z"
+      "updatedAt": "2026-06-04T02:54:44.994Z"
     }
   }
 }

@@ -3,9 +3,9 @@
 // Rehab progress is surfaced first, then readiness, today's session, and secondary actions.
 
 function HomeScreen({ onStart, onOpenHistory, onOpenLibrary, onOpenProgram, onOpenSensation, state, setState, profile }) {
-  const firstName = profile?.firstName?.trim() || 'Marc';
-  const condition = profile?.condition?.trim() || 'Post-LCA';
-  const nextAppointment = profile?.nextAppointment?.trim() || 'Jeudi · 14h';
+  const firstName = profile?.firstName?.trim() || 'Gabriel';
+  const condition = profile?.condition?.trim() || 'Douleur de hanche';
+  const nextAppointment = profile?.nextAppointment?.trim() || 'Vendredi · 10h';
   const todayLabel = formatTodayLabel();
 
   return (
@@ -24,7 +24,7 @@ function HomeScreen({ onStart, onOpenHistory, onOpenLibrary, onOpenProgram, onOp
           <span style={{ fontStyle: 'italic', color: T.accentInk }}>{firstName}.</span>
         </div>
         <div style={{ marginTop: 10, fontFamily: T.sans, fontSize: 15, color: T.ink2, lineHeight: 1.45 }}>
-          Semaine 6 · {condition} · <span style={{ color: T.accentInk }}>jour 38 sur 84</span>
+          Semaine 14 · {condition} · <span style={{ color: T.accentInk }}>jour 93 depuis le 4 mars</span>
         </div>
       </div>
 
@@ -46,7 +46,7 @@ function HomeScreen({ onStart, onOpenHistory, onOpenLibrary, onOpenProgram, onOp
       <div style={{ padding: '28px 24px 0' }}>
         <SectionLabel>Aussi aujourd'hui</SectionLabel>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 12 }}>
-          <MiniCard icon={<Icons.book size={22} stroke={T.sky}/>} label="Lexique" detail="LCA · en 2 min" tint={T.skySoft} onClick={onOpenLibrary} />
+          <MiniCard icon={<Icons.book size={22} stroke={T.sky}/>} label="Lexique" detail="Hanche · en 2 min" tint={T.skySoft} onClick={onOpenLibrary} />
           <MiniCard icon={<Icons.calendar size={22} stroke={T.amber}/>} label="Prochain RV" detail={nextAppointment} tint={T.amberSoft} />
           <MiniCard icon={<Icons.trend size={22} stroke={T.sage}/>} label="Progrès" detail="Voir la semaine" tint={T.sageSoft} onClick={onOpenHistory} />
         </div>
@@ -475,7 +475,7 @@ function ReadinessStrip({ state, setState, onOpenSensation }) {
         
         {ctx === 'morning' ? (
           <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <DotScale label="Douleur au genou" value={c.pain} onChange={(v)=>updateCheckin({pain:v})} color={T.accent}/>
+            <DotScale label="Douleur à la hanche" value={c.pain} onChange={(v)=>updateCheckin({pain:v})} color={T.accent}/>
             <DotScale label="Énergie" value={c.energy} onChange={(v)=>updateCheckin({energy:v})} color={T.sage}/>
             <DotScale label="Sommeil" value={c.sleep} onChange={(v)=>updateCheckin({sleep:v})} color={T.sky}/>
           </div>
@@ -634,10 +634,10 @@ function TodayCard({ onStart }) {
         <Icons.dot size={8} stroke={T.accentSoft}/> Séance du jour
       </div>
       <div style={{ marginTop: 10, fontFamily: T.display, fontSize: 27, lineHeight: 1.08 }}>
-        Renforcement <span style={{ fontStyle: 'italic' }}>quadriceps</span>
+        Force <span style={{ fontStyle: 'italic' }}>hanche</span>
       </div>
       <div style={{ marginTop: 13, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        {['22 min', '6 exercices'].map(label => (
+        {['21 min', '5 exercices', '3 × 12'].map(label => (
           <span key={label} style={{
             padding: '6px 10px', borderRadius: 999, background: 'rgba(255,255,255,0.12)',
             border: '0.5px solid rgba(255,255,255,0.18)',
@@ -661,7 +661,7 @@ function TodayCard({ onStart }) {
 // Rehab progress story
 // ─────────────────────────────────────────────────────────────
 function ProgressStory({ onOpen }) {
-  const pct = 45;
+  const pct = 72;
   return (
     <div onClick={onOpen} style={{ margin: '14px 16px 0', padding: '20px 20px 18px', borderRadius: 22, background: `linear-gradient(150deg, ${T.paper2}, ${T.paper})`, border: `0.5px solid ${T.line}`, boxShadow: '0 18px 42px rgba(18,52,59,0.06)', cursor: 'pointer' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
@@ -678,12 +678,12 @@ function ProgressStory({ onOpen }) {
           background: `linear-gradient(90deg, ${T.sage}, ${T.accent})`, borderRadius: 99 }}/>
       </div>
       <div style={{ marginTop: 14, display: 'flex', justifyContent: 'space-between', gap: 8, fontFamily: T.sans, fontSize: 12, color: T.ink3 }}>
-        {['Protection', 'Mobilité', <b key="k" style={{ color: T.accent }}>Force</b>, 'Sport', 'Retour'].map((l, i) => (
+        {['Stop bobo', 'Marcher', 'Mobilité', <b key="k" style={{ color: T.accent }}>Force</b>, 'Retour'].map((l, i) => (
           <div key={i} style={{ textAlign: 'center', flex: 1 }}>{l}</div>
         ))}
       </div>
       <div style={{ marginTop: 14, fontFamily: T.display, fontSize: 18, lineHeight: 1.3, color: T.ink }}>
-        Tu es à mi-chemin. <span style={{ fontStyle: 'italic', color: T.ink2 }}>La course légère revient dans 3 semaines.</span>
+        Tu es dans la phase force. <span style={{ fontStyle: 'italic', color: T.ink2 }}>La fin reste à confirmer avec ton physio.</span>
       </div>
       <div style={{ marginTop: 10, fontFamily: T.sans, fontSize: 13, color: T.accentInk }}>
         Voir le plan complet

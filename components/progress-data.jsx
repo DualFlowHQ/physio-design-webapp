@@ -1,12 +1,13 @@
 // Shared weekly rehab progression data used across Accueil, Programme, and Progres.
 
 const PROGRESS_WEEKS = [
-  { w: 'Sem 1', sessions: 2, targetSessions: 3, adherence: 66, effort: 3.1, pain: 5.8, summary: 'Remise en route prudente' },
-  { w: 'Sem 2', sessions: 3, targetSessions: 4, adherence: 75, effort: 4.4, pain: 4.5, summary: 'Gonflement mieux tolere' },
-  { w: 'Sem 3', sessions: 4, targetSessions: 4, adherence: 100, effort: 5.2, pain: 3.9, summary: 'Controle plus stable' },
-  { w: 'Sem 4', sessions: 3, targetSessions: 4, adherence: 75, effort: 5.9, pain: 3.4, summary: 'Mobilite validee' },
-  { w: 'Sem 5', sessions: 4, targetSessions: 4, adherence: 100, effort: 6.5, pain: 2.8, summary: 'Charge stable' },
-  { w: 'Sem 6', sessions: 4, targetSessions: 4, adherence: 100, effort: 6.3, pain: 2.1, summary: 'Force bien toleree', current: true },
+  { w: 'Sem 1-2', sessions: 10, targetSessions: 14, adherence: 71, effort: 2.6, pain: 8.0, summary: 'Stop bobo: calmer la douleur' },
+  { w: 'Sem 3-4', sessions: 12, targetSessions: 14, adherence: 86, effort: 3.2, pain: 8.0, summary: 'Marche courte et controle' },
+  { w: 'Sem 5-6', sessions: 14, targetSessions: 14, adherence: 100, effort: 4.1, pain: 8.0, summary: 'Programme quotidien lance' },
+  { w: 'Sem 7-8', sessions: 13, targetSessions: 14, adherence: 93, effort: 4.7, pain: 8.0, summary: 'Mobilite plus reguliere' },
+  { w: 'Sem 9-10', sessions: 14, targetSessions: 14, adherence: 100, effort: 5.5, pain: 6.0, summary: 'Ajout squat et pont' },
+  { w: 'Sem 11-12', sessions: 13, targetSessions: 14, adherence: 93, effort: 5.9, pain: 6.0, summary: 'Force mieux toleree' },
+  { w: 'Sem 13-14', sessions: 13, targetSessions: 14, adherence: 93, effort: 6.1, pain: 4.0, summary: 'Douleur stabilisee a 4/10', current: true },
 ];
 
 function cloneProgressWeek(week) {

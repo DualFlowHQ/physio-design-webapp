@@ -63,12 +63,11 @@ function SessionScreen({ onExit, state, setState }) {
 }
 
 const EXERCISES = [
-  { name: 'Squats au mur', muscle: 'Quadriceps', sets: 3, reps: 12, tempo: '3-1-1', load: 'Poids du corps', cue: 'Descends jusqu\'à 90° · dos bien plaqué' },
-  { name: 'Extension de genou', muscle: 'Quadriceps', sets: 3, reps: 10, tempo: '2-0-2', load: '8 kg', cue: 'Contrôle la descente — pas de claquement' },
-  { name: 'Step-up latéral', muscle: 'Fessiers · quadri', sets: 3, reps: 10, tempo: 'libre', load: '6 kg', cue: 'Monte par la jambe droite, pas par l\'élan' },
-  { name: 'Pont fessier', muscle: 'Fessiers', sets: 3, reps: 15, tempo: '2-2-1', load: 'Bande', cue: 'Serre les fesses 2 s en haut' },
-  { name: 'Fente arrière', muscle: 'Jambes', sets: 2, reps: 10, tempo: 'libre', load: '4 kg × 2', cue: 'Genou avant aligné avec la cheville' },
-  { name: 'Étirement ischio', muscle: 'Étirement', sets: 2, reps: '~30 sec', tempo: '—', load: '—', cue: 'Respire, ne force pas' },
+  { name: 'Montée de genou avec élastique', muscle: 'Fléchisseurs hanche', sets: 3, reps: 12, tempo: '2-1-2', load: 'Élastique léger', cue: 'Monte le genou sans basculer le bassin' },
+  { name: 'Abduction de hanche avec élastique', muscle: 'Abducteurs', sets: 3, reps: 12, tempo: '2-1-2', load: 'Élastique léger', cue: 'Garde le tronc stable et contrôle le retour' },
+  { name: 'Activation fessier', muscle: 'Fessiers', sets: 3, reps: 12, tempo: '2-2-2', load: 'Poids du corps', cue: 'Serre le fessier sans creuser le bas du dos' },
+  { name: 'Squat contrôlé', muscle: 'Hanche · jambes', sets: 3, reps: 12, tempo: '3-1-2', load: 'Poids du corps', cue: 'Amplitude confortable, poids réparti sur les deux pieds' },
+  { name: 'Pont fessier', muscle: 'Fessiers', sets: 3, reps: 12, tempo: '2-2-2', load: 'Poids du corps', cue: 'Monte le bassin sans pincer la hanche' },
 ];
 window.EXERCISES = EXERCISES;
 
@@ -713,7 +712,7 @@ function PainSlider({ value, onChange }) {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <div style={{ fontFamily: T.sans, fontSize: 14, color: T.ink }}>Douleur au genou</div>
+        <div style={{ fontFamily: T.sans, fontSize: 14, color: T.ink }}>Douleur à la hanche</div>
         <div style={{ fontFamily: T.mono, fontSize: 13, color }}>{value}/10</div>
       </div>
       <input type="range" min="0" max="10" value={value} onChange={(e) => onChange(+e.target.value)} style={{ width: '100%', marginTop: 10, accentColor: color }} />

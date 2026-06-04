@@ -9,7 +9,7 @@ function RecapScreen({ onHome, state, setState, profile }) {
     { key_: 'later', when: '2 h après', relative: 'séance du jour' },
   ];
 
-  const firstName = profile?.firstName?.trim() || 'Marc';
+  const firstName = profile?.firstName?.trim() || 'Gabriel';
 
   return (
     <div style={{ background: T.bg, minHeight: '100%', paddingBottom: 120 }}>
@@ -26,11 +26,11 @@ function RecapScreen({ onHome, state, setState, profile }) {
       {/* Big numbers */}
       <div style={{ margin: '22px 16px 0', padding: 20, borderRadius: 24, background: T.paper, border: `0.5px solid ${T.line}` }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-          <Stat label="Exercices" value="6" sub="/ 6" />
-          <Stat label="Séries" value="16" sub="/ 16" />
+          <Stat label="Exercices" value="5" sub="/ 5" />
+          <Stat label="Séries" value="15" sub="/ 15" />
         </div>
         <div style={{ marginTop: 18, paddingTop: 16, borderTop: `0.5px solid ${T.line}`, fontFamily: T.sans, fontSize: 13, color: T.ink2, fontStyle: 'italic' }}>
-          « Contrôle plus propre qu'hier sur les extensions. Pic de douleur sur les step-ups (3/10) — reste à surveiller. » — <span style={{ color: T.ink }}>résumé généré</span>
+          « Programme complet. Douleur de hanche stable autour de 4/10 pendant les séries — continuer sans chercher à forcer l’amplitude. » — <span style={{ color: T.ink }}>résumé généré</span>
         </div>
       </div>
 

@@ -1,113 +1,78 @@
-// Programme screen - patient-facing map of the full rehab plan, not only today's slice.
+// Programme screen - bank of patient-selectable rehab programs.
 
 // Demo prescription data: in a real product this would come from the clinician-authored plan.
+const HIP_INITIAL_EXERCISES = [
+  { name: 'Montée de genou avec élastique', muscle: 'Fléchisseurs hanche', sets: 3, reps: 12, tempo: '2-1-2', load: 'Élastique léger', cue: 'Monte le genou sans basculer le bassin' },
+  { name: 'Abduction de hanche avec élastique', muscle: 'Abducteurs', sets: 3, reps: 12, tempo: '2-1-2', load: 'Élastique léger', cue: 'Garde le tronc stable et contrôle le retour' },
+  { name: 'Activation fessier', muscle: 'Fessiers', sets: 3, reps: 12, tempo: '2-2-2', load: 'Poids du corps', cue: 'Serre le fessier sans creuser le bas du dos' },
+];
+
+const HIP_FULL_EXERCISES = [
+  ...HIP_INITIAL_EXERCISES,
+  { name: 'Squat contrôlé', muscle: 'Hanche · jambes', sets: 3, reps: 12, tempo: '3-1-2', load: 'Poids du corps', cue: 'Amplitude confortable, poids réparti sur les deux pieds' },
+  { name: 'Pont fessier', muscle: 'Fessiers', sets: 3, reps: 12, tempo: '2-2-2', load: 'Poids du corps', cue: 'Monte le bassin sans pincer la hanche' },
+];
+
 const PROGRAM_DATA = {
-  day: 38,
-  totalDays: 84,
-  currentWeek: 6,
+  day: 93,
+  totalDays: null,
+  endLabel: 'à confirmer',
+  currentWeek: 14,
   currentPhaseId: 'force',
-  nextSession: {
-    title: 'Contrôle genou',
-    time: 'Aujourd\'hui · 18 min',
-    detail: '5 exercices · phase 2 · proprioception',
-  },
   weeklyFocus: {
     title: 'Objectif de la semaine',
-    text: 'Tolérer 4 séances sans hausse durable de douleur le lendemain.',
+    text: 'Choisir dans la banque selon la tolérance du jour et les consignes du physio, en gardant la douleur autour de 4/10.',
     checks: [
-      { label: 'Douleur après séance', value: 'viser 0 à 3/10', tone: 'good' },
-      { label: 'Charge', value: 'stable ou légèrement en hausse', tone: 'neutral' },
-      { label: 'À surveiller', value: 'raideur marquée le lendemain', tone: 'watch' },
+      { label: 'Douleur après séance', value: 'rester autour de 4/10', tone: 'good' },
+      { label: 'Choix du jour', value: 'cardio doux ou force hanche', tone: 'neutral' },
+      { label: 'À surveiller', value: 'pic de hanche ou boiterie', tone: 'watch' },
     ],
   },
-  phases: [
-    { id: 'protection', label: 'Protection', weeks: 'Sem 1-2', status: 'done', note: 'Gonflement sous contrôle' },
-    { id: 'mobilite', label: 'Mobilité', weeks: 'Sem 3-4', status: 'done', note: 'Flexion complète retrouvée' },
-    { id: 'force', label: 'Force', weeks: 'Sem 5-8', status: 'current', note: 'Quadriceps et stabilité' },
-    { id: 'sport', label: 'Sport', weeks: 'Sem 9-11', status: 'next', note: 'Course légère, sauts simples' },
-    { id: 'retour', label: 'Retour', weeks: 'Sem 12', status: 'future', note: 'Retour contrôlé au terrain' },
-  ],
-  weekSessions: [
+  programs: [
     {
-      id: 'quad',
-      day: 'Lun',
-      title: 'Renforcement quadriceps',
-      meta: '22 min · 6 exercices',
-      status: 'done',
-      objective: 'Tolérer la charge sans douleur qui grimpe après la séance.',
+      id: 'swim-15',
+      badge: '15 min',
+      title: 'Nager',
+      meta: '15 min · cardio doux',
+      objective: 'Bouger sans impact et surveiller la réaction de la hanche.',
       exercises: [
-        { name: 'Squats au mur', muscle: 'Quadriceps', sets: 3, reps: 12, tempo: '3-1-1', load: 'Poids du corps', cue: 'Descends jusqu\'à 90° · dos bien plaqué' },
-        { name: 'Extension de genou', muscle: 'Quadriceps', sets: 3, reps: 10, tempo: '2-0-2', load: '8 kg', cue: 'Contrôle la descente — pas de claquement' },
-        { name: 'Step-up latéral', muscle: 'Fessiers · quadri', sets: 3, reps: 10, tempo: 'libre', load: '6 kg', cue: 'Monte par la jambe droite, pas par l\'élan' },
-        { name: 'Pont fessier', muscle: 'Fessiers', sets: 3, reps: 15, tempo: '2-2-1', load: 'Bande', cue: 'Serre les fesses 2 s en haut' },
-        { name: 'Fente arrière', muscle: 'Jambes', sets: 2, reps: 10, tempo: 'libre', load: '4 kg × 2', cue: 'Genou avant aligné avec la cheville' },
-        { name: 'Étirement ischio', muscle: 'Étirement', sets: 2, reps: '~30 sec', tempo: '—', load: '—', cue: 'Respire, ne force pas' },
+        { name: 'Nage facile', muscle: 'Cardio doux', sets: 1, reps: '15 min', tempo: 'facile', load: 'Piscine', cue: 'Reste à une intensité confortable et note la réaction de la hanche après.' },
       ],
     },
     {
-      id: 'mobility',
-      day: 'Mar',
-      title: 'Mobilité + ischios',
-      meta: '14 min · routine douce',
-      status: 'done',
-      objective: 'Récupérer de la fluidité sans ajouter de fatigue.',
+      id: 'bike-5',
+      badge: '5 min',
+      title: 'Vélo',
+      meta: '5 min · mobilité active',
+      objective: 'Réchauffer la hanche sans forcer.',
       exercises: [
-        { name: 'Glissés de talon', muscle: 'Mobilité genou', sets: 2, reps: 12, tempo: 'lent', load: '—', cue: 'Garde le talon au sol et arrête avant le pincement' },
-        { name: 'Extension passive', muscle: 'Extension', sets: 2, reps: '~45 sec', tempo: '—', load: 'Serviette', cue: 'Relâche la cuisse, laisse le genou s\'ouvrir' },
-        { name: 'Ischio élastique', muscle: 'Ischios', sets: 2, reps: 12, tempo: '2-1-2', load: 'Bande légère', cue: 'Ramène le talon sans cambrer le dos' },
-        { name: 'Respiration jambes au mur', muscle: 'Récupération', sets: 1, reps: '~2 min', tempo: 'calme', load: '—', cue: 'Respire lentement, genou confortable' },
+        { name: 'Vélo facile', muscle: 'Mobilité hanche', sets: 1, reps: '5 min', tempo: 'facile', load: 'Résistance faible', cue: 'Garde une cadence fluide, sans chercher la fatigue.' },
       ],
     },
     {
-      id: 'control',
-      day: 'Jeu',
-      title: 'Contrôle genou',
-      meta: '18 min · proprioception',
-      status: 'today',
-      objective: 'Garder l\'alignement du genou quand l\'équilibre devient moins stable.',
-      exercises: [
-        { name: 'Équilibre unipodal', muscle: 'Proprioception', sets: 3, reps: '~30 sec', tempo: 'stable', load: '—', cue: 'Fixe un point et garde le genou au-dessus du pied' },
-        { name: 'Mini squat contrôlé', muscle: 'Quadriceps', sets: 3, reps: 8, tempo: '3-1-2', load: 'Poids du corps', cue: 'Petit angle, mouvement lent, pas de valgus' },
-        { name: 'Step-down bas', muscle: 'Contrôle genou', sets: 3, reps: 8, tempo: '2-1-2', load: 'Marche basse', cue: 'Descends sans laisser le bassin tomber' },
-        { name: 'Marche latérale bande', muscle: 'Fessiers', sets: 2, reps: 10, tempo: 'régulier', load: 'Bande', cue: 'Garde les pieds parallèles et la tension constante' },
-        { name: 'Étirement mollet', muscle: 'Mobilité cheville', sets: 2, reps: '~30 sec', tempo: '—', load: 'Mur', cue: 'Talons au sol, respiration calme' },
-      ],
+      id: 'hip-3',
+      badge: '3 exos',
+      title: 'Programme 3 exercices',
+      meta: '3 exercices · 3 × 12',
+      objective: 'Bloc initial depuis le 1er avril.',
+      exercises: HIP_INITIAL_EXERCISES,
     },
     {
-      id: 'walk',
-      day: 'Sam',
-      title: 'Marche active',
-      meta: '25 min · effort 5/10',
-      status: 'upcoming',
-      objective: 'Tester l\'endurance sans dépasser un effort modéré.',
-      exercises: [
-        { name: 'Échauffement marche', muscle: 'Cardio doux', sets: 1, reps: '~5 min', tempo: 'facile', load: '—', cue: 'Allure confortable, pas de boiterie' },
-        { name: 'Marche active fractionnée', muscle: 'Endurance', sets: 5, reps: '~3 min', tempo: 'effort 5/10', load: '—', cue: 'Augmente légèrement l\'allure, genou stable' },
-        { name: 'Retour au calme', muscle: 'Récupération', sets: 1, reps: '~5 min', tempo: 'calme', load: '—', cue: 'Ralentis jusqu\'à une respiration normale' },
-      ],
+      id: 'hip-5',
+      badge: '5 exos',
+      title: 'Programme 5 exercices',
+      meta: '21 min · 5 exercices',
+      objective: 'Bloc complet depuis l’ajout du squat et du pont le 8 mai.',
+      exercises: HIP_FULL_EXERCISES,
     },
-  ],
-  completed: [
-    { label: 'Sem 5', sessions: '4/4 séances', pain: '2.8', note: 'Charge stable' },
-    { label: 'Sem 4', sessions: '3/4 séances', pain: '3.4', note: 'Mobilité validée' },
-  ],
-  milestones: [
-    { when: 'Dans 3 semaines', text: 'Test de course légère si douleur stable sous 3/10' },
-    { when: 'Sem 12', text: 'Retour au sport contrôlé après validation clinique' },
   ],
 };
 
 function ProgramScreen({ onBack, onStart, onOpenHistory }) {
-  const progressWeeks = window.getProgressWeeks ? window.getProgressWeeks() : [];
-  const completedRows = getProgramCompletedRows(progressWeeks);
-  const pct = Math.round((PROGRAM_DATA.day / PROGRAM_DATA.totalDays) * 100);
-  const daysLeft = Math.max(PROGRAM_DATA.totalDays - PROGRAM_DATA.day, 0);
-  const defaultSession = PROGRAM_DATA.weekSessions.find((session) => session.status === 'today') || PROGRAM_DATA.weekSessions[0];
-  const [selectedSessionId, setSelectedSessionId] = React.useState(defaultSession.id);
-  const selectedSession = PROGRAM_DATA.weekSessions.find((session) => session.id === selectedSessionId) || defaultSession;
-  const totalSessions = PROGRAM_DATA.weekSessions.length;
-  const completedSessions = PROGRAM_DATA.weekSessions.filter((session) => session.status === 'done').length;
-  const todaySession = PROGRAM_DATA.weekSessions.find((session) => session.status === 'today');
+  const pct = 72;
+  const defaultProgram = PROGRAM_DATA.programs[0];
+  const [selectedProgramId, setSelectedProgramId] = React.useState(defaultProgram.id);
+  const selectedProgram = PROGRAM_DATA.programs.find((program) => program.id === selectedProgramId) || defaultProgram;
 
   return (
     <div style={{ background: T.bg, minHeight: '100%', paddingBottom: 120 }}>
@@ -122,43 +87,29 @@ function ProgramScreen({ onBack, onStart, onOpenHistory }) {
           Programme complet
         </div>
         <div style={{ marginTop: 6, fontFamily: T.display, fontSize: 36, lineHeight: 1.05, color: T.ink }}>
-          Ton plan jusqu'au<br /><span style={{ fontStyle: 'italic', color: T.accentInk }}>retour au sport.</span>
+          Ton plan jusqu'au<br /><span style={{ fontStyle: 'italic', color: T.accentInk }}>retour progressif.</span>
         </div>
         <div style={{ marginTop: 12, fontFamily: T.sans, fontSize: 14, color: T.ink2, lineHeight: 1.45 }}>
-          Semaine {PROGRAM_DATA.currentWeek} · jour {PROGRAM_DATA.day} sur {PROGRAM_DATA.totalDays}.
+          Semaine {PROGRAM_DATA.currentWeek} · jour {PROGRAM_DATA.day} depuis le 4 mars · {PROGRAM_DATA.endLabel}.
         </div>
       </div>
 
-      <TodayProgramCard session={PROGRAM_DATA.nextSession} todaySession={todaySession} onStart={() => onStart(todaySession?.exercises)} />
+      <SelectedProgramCard program={selectedProgram} onStart={() => onStart(selectedProgram.exercises)} />
       <ProgramProgress
         pct={pct}
-        currentWeek={PROGRAM_DATA.currentWeek}
-        completedSessions={completedSessions}
-        totalSessions={totalSessions}
-        daysLeft={daysLeft}
+        programCount={PROGRAM_DATA.programs.length}
+        currentPhase="Force"
+        endLabel={PROGRAM_DATA.endLabel}
         onOpenHistory={onOpenHistory}
       />
       <WeeklyFocusCard focus={PROGRAM_DATA.weeklyFocus} />
-      <DayProgramBlock
-        sessions={PROGRAM_DATA.weekSessions}
-        selectedSession={selectedSession}
-        onSelectSession={setSelectedSessionId}
+      <ProgramBankBlock
+        programs={PROGRAM_DATA.programs}
+        selectedProgram={selectedProgram}
+        onSelectProgram={setSelectedProgramId}
       />
     </div>
   );
-}
-
-function getProgramCompletedRows(weeks) {
-  const source = window.getCompletedProgressWeeks
-    ? window.getCompletedProgressWeeks(2)
-    : weeks.filter((week) => !week.current).reverse().slice(0, 2);
-
-  return source.map((week) => ({
-    label: week.w,
-    sessions: `${week.sessions}/${week.targetSessions} séances`,
-    pain: week.pain,
-    note: week.summary,
-  }));
 }
 
 function CircleIcon({ icon, onClick }) {
@@ -183,7 +134,7 @@ function CircleIcon({ icon, onClick }) {
   );
 }
 
-function ProgramProgress({ pct, currentWeek, completedSessions, totalSessions, daysLeft, onOpenHistory }) {
+function ProgramProgress({ pct, programCount, currentPhase, endLabel, onOpenHistory }) {
   return (
     <div style={{ margin: '22px 16px 0', padding: 20, borderRadius: 24, background: T.paper, border: `0.5px solid ${T.line}`, boxShadow: '0 18px 42px rgba(18,52,59,0.06)' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
@@ -191,9 +142,9 @@ function ProgramProgress({ pct, currentWeek, completedSessions, totalSessions, d
         <div style={{ fontFamily: T.mono, fontSize: 13, color: T.ink }}>{pct}%</div>
       </div>
       <div style={{ marginTop: 14, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
-        <ProgramStat label="Cette semaine" value={`${completedSessions}/${totalSessions}`} />
-        <ProgramStat label="Phase actuelle" value={`Sem ${currentWeek}`} />
-        <ProgramStat label="Reste estimé" value={`${daysLeft} j`} />
+        <ProgramStat label="Banque" value={programCount} />
+        <ProgramStat label="Phase" value={currentPhase} />
+        <ProgramStat label="Fin" value={endLabel} />
       </div>
       <button
         onClick={onOpenHistory}
@@ -272,7 +223,9 @@ function FocusCheck({ item }) {
   );
 }
 
-function TodayProgramCard({ session, todaySession, onStart }) {
+function SelectedProgramCard({ program, onStart }) {
+  const totalSets = getProgramTotalSets(program);
+
   return (
     <div style={{ margin: '14px 16px 0', padding: 18, borderRadius: 24, background: `linear-gradient(145deg, ${T.ink} 0%, ${T.accentInk} 62%, #0D4F48 100%)`, color: T.paper, position: 'relative', overflow: 'hidden', boxShadow: '0 24px 55px rgba(18,52,59,0.22)' }}>
       <div style={{ position: 'absolute', right: -54, top: -64, width: 172, height: 172, borderRadius: 999, background: 'rgba(255,255,255,0.08)' }} />
@@ -280,22 +233,20 @@ function TodayProgramCard({ session, todaySession, onStart }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: T.sans, fontSize: 13, letterSpacing: 0.5, textTransform: 'uppercase', opacity: 0.78 }}>
           <Icons.dot size={7} stroke={T.accentSoft} />
-          Prochaine action
+          Programme sélectionné
         </div>
-        {todaySession && (
-          <div style={{ padding: '6px 10px', borderRadius: 999, background: 'rgba(255,255,255,0.12)', border: '0.5px solid rgba(255,255,255,0.18)', fontFamily: T.mono, fontSize: 12 }}>
-            {todaySession.day} · aujourd'hui
-          </div>
-        )}
+        <div style={{ padding: '6px 10px', borderRadius: 999, background: 'rgba(255,255,255,0.12)', border: '0.5px solid rgba(255,255,255,0.18)', fontFamily: T.mono, fontSize: 12 }}>
+          {program.exercises.length} bloc{program.exercises.length > 1 ? 's' : ''}
+        </div>
       </div>
       <div style={{ marginTop: 10, fontFamily: T.display, fontSize: 25, lineHeight: 1.12 }}>
-        {session.title}
+        {program.title}
       </div>
       <div style={{ marginTop: 8, fontFamily: T.sans, fontSize: 14, lineHeight: 1.45, opacity: 0.84 }}>
-        {session.time} · {session.detail}
+        {program.meta} · {program.objective}
       </div>
       <div style={{ marginTop: 14, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        <DarkChip label="objectif: contrôle du genou" />
+        <DarkChip label={totalSets === 1 ? 'bloc cardio doux' : `${totalSets} séries`} />
         <DarkChip label="surveiller la douleur à chaud" />
       </div>
       <button
@@ -333,29 +284,29 @@ function DarkChip({ label }) {
   );
 }
 
-function DayProgramBlock({ sessions, selectedSession, onSelectSession }) {
-  const exercises = selectedSession.exercises || [];
+function ProgramBankBlock({ programs, selectedProgram, onSelectProgram }) {
+  const exercises = selectedProgram.exercises || [];
   const totalSets = exercises.reduce((sum, ex) => sum + ex.sets, 0);
 
 
   return (
     <div style={{ padding: '24px 16px 0' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '0 4px' }}>
-        <SectionLabel>Programme du jour</SectionLabel>
+        <SectionLabel>Banque de programmes</SectionLabel>
         <div style={{ fontFamily: T.mono, fontSize: 12, color: T.ink3 }}>
-          {exercises.length} exercices · {totalSets} séries
+          {exercises.length} bloc{exercises.length > 1 ? 's' : ''} · {formatTotalSets(totalSets)}
         </div>
       </div>
 
       <div style={{ marginTop: 12, padding: 14, borderRadius: 22, background: T.paper, border: `0.5px solid ${T.line}`, boxShadow: '0 18px 42px rgba(18,52,59,0.06)' }}>
         <div style={{ padding: '0 2px 12px', fontFamily: T.sans, fontSize: 13, lineHeight: 1.45, color: T.ink2 }}>
-          Change de séance pour voir les autres plans prévus cette semaine.
+          Choisis le programme que tu veux faire maintenant.
         </div>
 
         <WorkoutPlanCarousel
-          sessions={sessions}
-          selectedSession={selectedSession}
-          onSelectSession={onSelectSession}
+          programs={programs}
+          selectedProgram={selectedProgram}
+          onSelectProgram={onSelectProgram}
         />
 
 
@@ -370,29 +321,25 @@ function DayProgramBlock({ sessions, selectedSession, onSelectSession }) {
   );
 }
 
-function WorkoutPlanCarousel({ sessions, selectedSession, onSelectSession }) {
+function WorkoutPlanCarousel({ programs, selectedProgram, onSelectProgram }) {
   return (
     <div style={{ display: 'flex', gap: 10, overflowX: 'auto', padding: '0 0 12px', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch' }}>
-      {sessions.map((session) => (
+      {programs.map((program) => (
         <WorkoutPlanCard
-          key={session.id}
-          session={session}
-          active={session.id === selectedSession.id}
-          onSelect={() => onSelectSession(session.id)}
+          key={program.id}
+          program={program}
+          active={program.id === selectedProgram.id}
+          onSelect={() => onSelectProgram(program.id)}
         />
       ))}
     </div>
   );
 }
 
-function WorkoutPlanCard({ session, active, onSelect }) {
-  const done = session.status === 'done';
-  const today = session.status === 'today';
+function WorkoutPlanCard({ program, active, onSelect }) {
   const tone = active
     ? { bg: `linear-gradient(145deg, ${T.ink}, ${T.accentInk})`, fg: T.paper, muted: T.accentSoft, border: T.accentInk, shadow: '0 16px 32px rgba(18,52,59,0.20)' }
-    : today
-      ? { bg: `linear-gradient(160deg, ${T.accentSoft}, ${T.paper})`, fg: T.ink, muted: T.accentInk, border: T.line2, shadow: '0 10px 24px rgba(8,127,140,0.08)' }
-      : { bg: `linear-gradient(180deg, ${T.paper2}, ${T.paper})`, fg: T.ink, muted: T.ink3, border: T.line, shadow: 'none' };
+    : { bg: `linear-gradient(180deg, ${T.paper2}, ${T.paper})`, fg: T.ink, muted: T.ink3, border: T.line, shadow: 'none' };
 
   return (
     <button
@@ -413,20 +360,28 @@ function WorkoutPlanCard({ session, active, onSelect }) {
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
         <div style={{ width: 38, height: 38, borderRadius: 14, background: active ? 'rgba(255,255,255,0.13)' : T.paper, border: active ? '0.5px solid rgba(255,255,255,0.18)' : `0.5px solid ${T.line}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: T.mono, fontSize: 12, color: active ? T.paper : T.ink }}>
-          {session.day}
+          {program.badge}
         </div>
-        <div style={{ padding: '5px 8px', borderRadius: 999, background: active ? 'rgba(255,255,255,0.13)' : T.paper, border: active ? '0.5px solid rgba(255,255,255,0.18)' : `0.5px solid ${T.line}`, fontFamily: T.mono, fontSize: 10, color: active ? T.paper : done ? T.sage : today ? T.accentInk : T.ink3, whiteSpace: 'nowrap' }}>
-          {today ? 'Aujourd\'hui' : done ? 'Fait' : 'À venir'}
+        <div style={{ padding: '5px 8px', borderRadius: 999, background: active ? 'rgba(255,255,255,0.13)' : T.paper, border: active ? '0.5px solid rgba(255,255,255,0.18)' : `0.5px solid ${T.line}`, fontFamily: T.mono, fontSize: 10, color: active ? T.paper : T.ink3, whiteSpace: 'nowrap' }}>
+          {program.exercises.length} bloc{program.exercises.length > 1 ? 's' : ''}
         </div>
       </div>
       <div style={{ marginTop: 12, fontFamily: T.sans, fontSize: 14, lineHeight: 1.2, fontWeight: 600, color: tone.fg }}>
-        {session.title}
+        {program.title}
       </div>
       <div style={{ marginTop: 5, fontFamily: T.sans, fontSize: 12, lineHeight: 1.35, color: active ? T.accentSoft : tone.muted }}>
-        {session.meta}
+        {program.meta}
       </div>
     </button>
   );
+}
+
+function getProgramTotalSets(program) {
+  return (program.exercises || []).reduce((sum, ex) => sum + ex.sets, 0);
+}
+
+function formatTotalSets(totalSets) {
+  return totalSets === 1 ? '1 bloc' : `${totalSets} séries`;
 }
 
 
@@ -456,7 +411,7 @@ function DayExerciseRow({ index, ex, isLast }) {
             {ex.name}
           </div>
           <div style={{ fontFamily: T.mono, fontSize: 12, color: T.ink3, whiteSpace: 'nowrap' }}>
-            {ex.sets} × {ex.reps}
+            {formatExerciseDose(ex)}
           </div>
         </div>
         <div style={{ marginTop: 5, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
@@ -491,45 +446,8 @@ function TinyProgramChip({ label }) {
   );
 }
 
-function CompletedBlock({ rows, onOpenHistory }) {
-  return (
-    <div style={{ padding: '24px 16px 0' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '0 4px' }}>
-        <SectionLabel>Déjà complété</SectionLabel>
-        <div onClick={onOpenHistory} style={{ fontFamily: T.sans, fontSize: 12, color: T.accentInk, cursor: 'pointer' }}>
-          Voir progrès
-        </div>
-      </div>
-      <div style={{ marginTop: 12, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-        {rows.map((row) => (
-          <div key={row.label} style={{ padding: 14, borderRadius: 18, background: T.paper, border: `0.5px solid ${T.line}`, boxShadow: '0 10px 24px rgba(18,52,59,0.05)' }}>
-            <div style={{ fontFamily: T.mono, fontSize: 12, color: T.ink3 }}>{row.label}</div>
-            <div style={{ marginTop: 6, fontFamily: T.sans, fontSize: 14, fontWeight: 500, color: T.ink }}>{row.sessions}</div>
-            <div style={{ marginTop: 4, fontFamily: T.sans, fontSize: 13, color: T.ink3 }}>Douleur moyenne {row.pain} · {row.note}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function MilestoneBlock({ items }) {
-  return (
-    <div style={{ padding: '24px 16px 0' }}>
-      <SectionLabel>À venir</SectionLabel>
-      <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {items.map((item) => (
-          <div key={item.when} style={{ padding: 14, borderRadius: 18, background: T.paper2, display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-            <Icons.calendar size={17} stroke={T.amber} />
-            <div style={{ flex: 1 }}>
-              <div style={{ fontFamily: T.mono, fontSize: 12, color: T.ink3 }}>{item.when}</div>
-              <div style={{ marginTop: 3, fontFamily: T.sans, fontSize: 13, lineHeight: 1.4, color: T.ink }}>{item.text}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+function formatExerciseDose(ex) {
+  return ex.sets === 1 && typeof ex.reps === 'string' ? ex.reps : `${ex.sets} × ${ex.reps}`;
 }
 
 window.ProgramScreen = ProgramScreen;
