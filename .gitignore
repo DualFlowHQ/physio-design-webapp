@@ -1,0 +1,14 @@
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Dependency and build outputs if tooling is added later
+node_modules/
+dist/
+build/
+
